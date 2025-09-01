@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>讓 AI，真的有用！- nuva Asian Tour｜講座</title>
+  <meta name="description" content="兩小時帶你系統性掌握 AI 學習脈絡。看懂路徑、選對工具，真正幫到你的職場。nuva 亞洲巡迴・東京站。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --primary-900:#1e40af; --primary-700:#1d4ed8; --primary-500:#3b82f6; --primary-300:#60a5fa;
+      --green-500:#10b981; --green-600:#059669;
+      --radius-xl:20px; --shadow-1:0 6px 22px rgba(0,0,0,.1); --shadow-2:0 14px 40px rgba(0,0,0,.18);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Noto Sans TC',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.7;color:#333;overflow-x:hidden;background:#fff;scroll-behavior:smooth}
+
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+
+    /* Header */
+    .header{background:#2345ad;padding:1rem 0;position:fixed;inset:0 0 auto 0;z-index:1000;backdrop-filter:blur(10px)}
+    .nav-container{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center}
+    .logo{color:#fff;font-weight:900;letter-spacing:.02em}
+    .nav-links{display:flex;gap:1rem;align-items:center}
+    .nav-links a{color:#fff;text-decoration:none;font-weight:800}
+    .nav-links a:hover{color:var(--primary-300)}
+    .nav-cta{
+      margin-left:.25rem;background:#fff;color:var(--primary-700)!important;border-radius:999px;
+      padding:.55rem 1.1rem;box-shadow:0 10px 24px rgba(255,255,255,.15),0 8px 24px rgba(0,0,0,.18);
+      transition:.2s ease
+    }
+    .nav-cta:hover{transform:translateY(-2px)}
+    section{scroll-margin-top:80px}
+
+    /* Hero */
+    .hero{
+      background:linear-gradient(135deg,var(--primary-900),var(--primary-500),var(--primary-300));
+      background-size:400% 400%;animation:gradient 15s ease infinite;
+      color:#fff;min-height:100vh;padding:8rem 0 4rem;display:flex;align-items:center;position:relative;isolation:isolate
+    }
+    .hero::before{content:"";position:absolute;inset:0;background:
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="g" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="0.5" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="0.8" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23g)"/></svg>');
+      z-index:-1;pointer-events:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+    .hero-content{text-align:center;animation:fadeInUp 1s ease-out}
+    .hero h1{font-size:3.2rem;font-weight:900;letter-spacing:.02em;margin:.5rem 0 1rem}
+    .hero-description{max-width:820px;margin:0 auto 1.6rem;font-size:1.15rem;opacity:.95}
+    .event-info{background:rgba(255,255,255,.12);backdrop-filter:blur(10px);padding:1.6rem;border-radius:var(--radius-xl);max-width:640px;margin:1.4rem auto}
+    .event-info p{margin:.15rem 0}
+    .cta-button{
+      display:inline-block;text-decoration:none;color:#fff;background:linear-gradient(45deg,var(--green-500),var(--green-600));
+      font-weight:900;letter-spacing:.06em;border-radius:999px;padding:1rem 2.4rem;box-shadow:0 10px 28px rgba(16,185,129,.55);
+      transition:.2s ease; text-transform:uppercase
+    }
+    .cta-button:hover{transform:translateY(-3px)}
+    .countdown{margin-top:.5rem;font-weight:700}
+
+    /* 背景浮動 */
+    .floating-elements{position:fixed;inset:0;pointer-events:none;z-index:0}
+    .floating-element{position:absolute;border-radius:50%;background:rgba(59,130,246,.12);animation:float 6s ease-in-out infinite}
+
+    .section-title{text-align:center;color:var(--primary-900);font-size:2.2rem;margin-bottom:2rem;font-weight:900}
+
+    /* 合作夥伴：白背景 + 圖寬 2/3 視窗 */
+    .partners-section{padding:5rem 0;background:#fff}
+    .partners-media{display:flex;justify-content:center}
+    .partner-banner{width:min(66.666vw,1200px);max-width:1200px;height:auto;display:block;border-radius:18px;box-shadow:var(--shadow-1)}
+
+    /* 三大理由 */
+    .reasons-section{padding:4rem 0;background:#fff}
+    .reasons-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.6rem}
+    .reason-card{background:linear-gradient(135deg,#f8fafc,#e2e8f0);padding:1.8rem;border-radius:18px;border-left:5px solid var(--primary-500);box-shadow:var(--shadow-1)}
+    .reason-card h3{color:var(--primary-900);font-size:1.25rem;margin-bottom:.5rem}
+
+    /* 兩大邏輯 */
+    .logic-section{padding:4rem 0;background:linear-gradient(135deg,var(--primary-900),var(--primary-500));color:#fff}
+    .logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:1.6rem}
+    .logic-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:1.8rem}
+
+    /* 時程 */
+    .schedule-section{padding:4rem 0;background:#fff}
+    .schedule-timeline{max-width:820px;margin:0 auto}
+    .timeline-item{display:flex;gap:1rem;padding:1.2rem;background:#f8fafc;border-left:5px solid var(--primary-500);border-radius:16px;margin-bottom:1rem}
+    .timeline-time{min-width:180px;color:var(--primary-900);font-weight:900}
+    .timeline-content h3{font-size:1.15rem;margin:.15rem 0 .35rem;color:#0f172a;font-weight:800}
+    .timeline-content ul{margin-left:1.2rem}
+    .timeline-content li{margin:.2rem 0}
+
+    /* 活動資訊 */
+    .event-details{padding:4rem 0;background:linear-gradient(to bottom,#f1f5f9,#e2e8f0)}
+    .details-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem}
+    .detail-card{background:#fff;border-radius:18px;padding:1.4rem;box-shadow:var(--shadow-1)}
+    .map-button{display:inline-block;background:var(--primary-500);color:#fff;text-decoration:none;padding:.65rem 1.1rem;border-radius:999px;font-weight:900}
+    .map-button:hover{background:var(--primary-700)}
+    .supporter-logos{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:.4rem}
+    .supporter-logos img{height:44px;width:auto;object-fit:contain}
+
+    /* 講者 */
+    .speaker-section{padding:4rem 0;background:#fff}
+    .speaker-card{background:linear-gradient(135deg,#244fbe,#3a7bf3);color:#fff;border-radius:28px;padding:2.4rem 2rem;max-width:980px;margin:0 auto;box-shadow:0 22px 60px rgba(30,64,175,.28);text-align:center}
+    .speaker-avatar{width:140px;height:140px;border-radius:50%;border:5px solid #fff;object-fit:cover;margin-bottom:1rem}
+    .speaker-name{font-size:1.6rem;font-weight:900;margin:.25rem 0 1rem}
+    .speaker-bio{font-size:1.1rem;opacity:.97;line-height:1.9}
+    .speaker-bio p{margin:.35rem 0}
+
+    /* FAQ：加上 ► / ▼（標題不粗體） */
+    .faq-section{padding:4rem 0;background:linear-gradient(to bottom,#f8fafc,#e2e8f0)}
+    .faq-item{background:#fff;border-radius:18px;box-shadow:var(--shadow-1);overflow:hidden;margin-bottom:1rem}
+    .faq-question{
+      background:#3b82f6;color:#fff;font-weight:400; /* 改：不要粗體 */
+      cursor:pointer;user-select:none;
+      padding:1.05rem 1.25rem 1.05rem 2.75rem; position:relative
+    }
+    .faq-question::before{
+      content:"►"; position:absolute; left:1rem; top:50%; transform:translateY(-50%);
+      font-size:1rem; line-height:1; opacity:.95
+    }
+    .faq-item.active .faq-question::before{content:"▼"}
+    .faq-answer{display:none;padding:1.1rem 1.25rem;background:#fff}
+    .faq-item.active .faq-answer{display:block}
+
+    /* 參加活動（底部） */
+    .registration-section{padding:5rem 0;background:linear-gradient(135deg,var(--green-500),var(--green-600));color:#fff;text-align:center}
+    .registration-card{background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border-radius:26px;padding:2.2rem;max-width:680px;margin:0 auto}
+    .registration-card .cta-button{font-size:1.35rem;padding:1.2rem 2.8rem;box-shadow:0 18px 40px rgba(16,185,129,.6)}
+    .contact-link{margin-top:1rem}
+    .contact-link a{color:#fff;text-decoration:underline;font-weight:900}
+
+    .footer{background:#1f2937;color:#fff;text-align:center;padding:2rem 0}
+    .footer a{color:#93c5fd;text-decoration:none}
+    .footer a:hover{color:#bfdbfe}
+
+    .fade-in{opacity:0;transform:translateY(30px);transition:all .6s ease}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+
+    @media (max-width:768px){
+      .container{padding:0 1rem}
+      .nav-links{gap:.5rem}
+      .nav-cta{padding:.5rem 1rem}
+      .hero h1{font-size:2.3rem}
+      .partner-banner{width:88vw}
+      .timeline-item{flex-direction:column}
+      .timeline-time{min-width:auto}
+      .supporter-logos img{height:36px}
+    }
+  </style>
+</head>
+<body>
+  <!-- 背景浮動 -->
+  <div class="floating-elements" aria-hidden="true">
+    <div class="floating-element" style="width:80px;height:80px;top:20%;left:10%"></div>
+    <div class="floating-element" style="width:120px;height:120px;top:60%;right:10%"></div>
+    <div class="floating-element" style="width:60px;height:60px;top:80%;left:30%"></div>
+  </div>
+
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">nuva｜亞洲巡迴・東京</div>
+      <nav class="nav-links" aria-label="主選單">
+        <a href="#faq">FAQ</a>
+        <a id="nav-register" class="nav-cta" href="https://tally.so/r/mVKYxM" target="_blank" rel="noopener">立即報名</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <p class="hero-subtitle">nuva Asian Tour｜講座</p>
+          <h1>讓 AI，真的有用！</h1>
+          <p class="hero-description">AI 發展飛快、工具眾多，從哪開始？<br>這場兩小時帶你系統性掌握學習脈絡。<br><br>看懂路徑、選對工具，真正幫到你的職場。</p>
+          <div class="event-info">
+            <p>📅 2025/09/27（六）</p>
+            <p>🕑 14:00–16:00</p>
+            <p>📍 東京</p>
+            <p>🗣️ 繁體中文主講</p>
+          </div>
+          <a id="register-top" href="https://tally.so/r/mVKYxM" class="cta-button" target="_blank" rel="noopener">立即報名</a>
+          <p class="countdown" id="countdown">倒數計時載入中…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 合作夥伴（白底 + 2/3 視窗寬） -->
+    <section class="partners-section" id="partners" aria-labelledby="partners-title">
+      <div class="container">
+        <h2 class="section-title fade-in" id="partners-title">合作夥伴</h2>
+        <div class="partners-media fade-in">
+          <img class="partner-banner" src="./footages/合作夥伴.jpg" alt="合作夥伴 Logo 拼圖">
+        </div>
+      </div>
+    </section>
+
+    <!-- 三大理由 -->
+    <section class="reasons-section" id="reasons" aria-labelledby="reasons-title">
+      <div class="container">
+        <h2 class="section-title fade-in" id="reasons-title">值得跑一趟東京的三大理由</h2>
+        <div class="reasons-grid">
+          <div class="reason-card fade-in"><h3>💡 白話好懂</h3><p>沒有 AI 背景也能聽懂，帶手機就能學！講師用生活化例子，避免高空抽象，幫你踏出第一步。</p></div>
+          <div class="reason-card fade-in"><h3>🌏 繁體中文｜今年唯一一場</h3><p>在日本難得的中文學習資源，nuva 作為台灣指標性 AI 教學團隊，今年唯一一次東京分享。</p></div>
+          <div class="reason-card fade-in"><h3>📘 帶得走的講義</h3><p>現場提供講義與 3 個實用模板，幫助你立即提升效率、節省時間。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 兩大邏輯 -->
+    <section class="logic-section" id="logic" aria-labelledby="logic-title">
+      <div class="container">
+        <h2 class="section-title fade-in" id="logic-title" style="color:#fff">兩大底層邏輯</h2>
+        <div class="logic-grid">
+          <div class="logic-card fade-in"><h3>① 跟 AI 溝通</h3><p>像聊天一樣，清楚告訴 AI「角色、任務、輸出」，它就能更準確幫忙。</p></div>
+          <div class="logic-card fade-in"><h3>② 跟 AI 串接</h3><p>把 AI 當小幫手，接上常用工具（文件、表格、信件），讓日常更有效率。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 時程 -->
+    <section class="schedule-section" id="schedule" aria-labelledby="schedule-title">
+      <div class="container">
+        <h2 class="section-title fade-in" id="schedule-title">兩小時內容安排</h2>
+        <div class="schedule-timeline">
+          <div class="timeline-item fade-in">
+            <div class="timeline-time">14:00–14:30</div>
+            <div class="timeline-content">
+              <h3>如何讓你的 ChatGPT 變得比別人聰明？</h3>
+              <ul>
+                <li>學習 Markdown 語法，讓指令有條有序</li>
+                <li>設定 <strong>角色／目標／限制</strong>，輸出更精準</li>
+                <li>把模糊需求改寫成可執行任務的實戰演練</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-time">14:30–15:00</div>
+            <div class="timeline-content">
+              <h3>把 AI 接進工作流：文件、表格、信箱一鍵變助理</h3>
+              <ul>
+                <li>串接常用工具（Docs／Sheets／Gmail）做日常自動化</li>
+                <li>建立可重複的流程模板，節省 50% 重複工</li>
+                <li>資料安全與權限設定的必知原則</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-time">15:00–15:30</div>
+            <div class="timeline-content">
+              <h3>30 分鐘做出你的第一個 AI 小幫手</h3>
+              <ul>
+                <li>挑一個你的真實場景：簡報、客服回覆、會議摘要</li>
+                <li>用現場提供的 3 份模板快速完成原型</li>
+                <li>小組互評與教練指導，立即調整到能用</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-time">15:30–15:50</div>
+            <div class="timeline-content">
+              <h3>現場解題：你的情境我們一起拆</h3>
+              <ul>
+                <li>即時 Q&A，分析卡關原因與改寫方法</li>
+                <li>示範除錯：如何讓 AI 回答更準、更完整</li>
+                <li>延伸資源與最佳實務分享</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item fade-in">
+            <div class="timeline-time">15:50–16:00</div>
+            <div class="timeline-content">
+              <h3>不被淘汰的自學路線圖</h3>
+              <ul>
+                <li>一週練習計畫：15 分鐘就能開始</li>
+                <li>必追蹤的工具與社群清單</li>
+                <li>如何持續量化成效，向上溝通</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 活動資訊 -->
+    <section class="event-details" id="details" aria-labelledby="details-title">
+      <div class="container">
+        <h2 class="section-title fade-in" id="details-title">活動資訊</h2>
+        <div class="details-grid">
+          <div class="detail-card fade-in"><h3>語言</h3><p>繁體中文主講</p></div>
+          <div class="detail-card fade-in"><h3>時間</h3><p>2025/09/27（六）14:00–16:00</p></div>
+          <div class="detail-card fade-in"><h3>地點</h3><p>東京</p></div>
+          <div class="detail-card fade-in">
+            <h3>地址</h3>
+            <p>東京都中央区築地7-17-1 住友不動産築地ビル 六樓</p>
+            <a class="map-button" target="_blank" rel="noopener"
+               href="https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%83%BD%E4%B8%AD%E5%A4%AE%E5%8C%BA%E7%AF%89%E5%9C%B07-17-1%20%E4%BD%8F%E5%8F%8B%E4%B8%8D%E5%8B%95%E7%94%A3%E7%AF%89%E5%9C%B0%E3%83%93%E3%83%AB%206F">查看地圖</a>
+          </div>
+
+          <!-- 新增：支持夥伴 -->
+          <div class="detail-card fade-in">
+            <h3>支持夥伴</h3>
+            <div class="supporter-logos" aria-label="支持夥伴 Logo">
+              <img src="./footages/mybest_logo.png" alt="mybest 標誌">
+              <img src="./footages/東吳大學校友會_logo.jpg" alt="東吳大學校友會 標誌">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 講者 -->
+    <section class="speaker-section" id="speaker" aria-labelledby="speaker-title">
+      <div class="container">
+        <h2 class="section-title fade-in" id="speaker-title">講者</h2>
+        <div class="speaker-card fade-in">
+          <img src="./footages/avatar.jpg" alt="講者 林上哲 大頭照" class="speaker-avatar" />
+          <div class="speaker-name">林上哲</div>
+          <div class="speaker-bio">
+            <p>活潑、好奇、帶點實驗精神——<br>證明「學 AI 可以像打電動一樣有趣」。</p>
+            <p>曾培訓 7-11、南山人壽、現代汽車，與 NVIDIA 聯名 AI 工作坊，<br>在台灣巡迴協助「零資訊背景」的人掌握生成式 AI 工具。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 class="section-title fade-in" id="faq-title">常見問題（FAQ）</h2>
+
+        <div class="faq-item fade-in">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">我只會一點點 ChatGPT，可以跟得上嗎？</div>
+          <div class="faq-answer">可以。整場設計給初學者；就算已常用 AI，也能建立更系統的學習脈絡。</div>
+        </div>
+
+        <div class="faq-item fade-in">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">會提供講義或重點整理嗎？</div>
+          <div class="faq-answer">會。課程期間的講義與討論精華，將整理成一份重點檔案提供你帶回去。</div>
+        </div>
+
+        <div class="faq-item fade-in">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">需要會寫程式或自動化工具嗎？</div>
+          <div class="faq-answer">不需要。本活動聚焦概念與底層邏輯，帶你看懂方向與關鍵觀念。</div>
+        </div>
+
+        <div class="faq-item fade-in">
+          <div class="faq-question" tabindex="0" role="button" aria-expanded="false">需要攜帶電腦嗎？</div>
+          <div class="faq-answer">不用，手機即可參與課程。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 參加活動 -->
+    <section class="registration-section" id="register" aria-labelledby="register-title">
+      <div class="container">
+        <div class="registration-card fade-in">
+          <h2 id="register-title" class="section-title" style="color:#fff;margin-bottom:.3rem">參加活動</h2>
+          <p style="opacity:.95;margin-bottom:1rem">名額有限，額滿關閉報名。完成報名後將寄送入場提醒與最新資訊。</p>
+          <a id="register-btn" href="https://tally.so/r/mVKYxM" class="cta-button" target="_blank" rel="noopener" aria-label="前往報名表單">立即報名</a>
+          <p class="contact-link"><a id="contact-line" href="https://line.me/ti/g2/BGYyHnvRuoTA3eM6NB8RhNjU_WEWgUigNFMEkQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener">聯繫我們</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© <span id="year"></span> nuva. 版權所有．聯絡我們：<a id="footer-line" href="https://line.me/ti/g2/BGYyHnvRuoTA3eM6NB8RhNjU_WEWgUigNFMEkQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener">LINE</a></div>
+  </footer>
+
+  <script>
+    // 年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 倒數（活動：東京時區）
+    (function(){
+      const el = document.getElementById('countdown');
+      const eventDate = new Date('2025-09-27T14:00:00+09:00').getTime();
+      const pad = n => n<10 ? '0'+n : n;
+      function tick(){
+        const diff = eventDate - Date.now();
+        if (diff <= 0){ el.textContent = '活動進行中或已結束'; clearInterval(t); return; }
+        const d = Math.floor(diff/86400000);
+        const h = Math.floor(diff%86400000/3600000);
+        const m = Math.floor(diff%3600000/60000);
+        const s = Math.floor(diff%60000/1000);
+        el.textContent = `倒數：${d} 天 ${pad(h)}:${pad(m)}:${pad(s)} 開始`;
+      }
+      tick();
+      const t = setInterval(tick, 1000);
+    })();
+
+    // 淡入
+    (function(){
+      const io = new IntersectionObserver(es=>es.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      }),{threshold:.15});
+      document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+    })();
+
+    // FAQ 開合（含 ►/▼）
+    (function(){
+      document.querySelectorAll('.faq-item').forEach(item=>{
+        const q = item.querySelector('.faq-question');
+        q.addEventListener('click', toggle);
+        q.addEventListener('keydown', e=>{
+          if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); }
+        });
+        function toggle(){
+          const open = item.classList.toggle('active');
+          q.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
